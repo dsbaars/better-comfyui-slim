@@ -37,6 +37,10 @@ RUN apt-get update && \
     procps \
     golang \
     make \
+    g++-11 gcc-11 \
+    byobu \
+    rsync \
+    git-lfs \
     && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb \
     && dpkg -i cuda-keyring_1.1-1_all.deb \
     && apt-get update \
@@ -72,10 +76,10 @@ RUN mkdir -p /workspace/madapps
 WORKDIR /workspace/madapps
 
 # Expose ports
-EXPOSE 8188 22 8048 8080
+EXPOSE 22
 
-# Copy and set up start script
-COPY start.sh /start.sh
+# Copy and set up start script and configuration
+COPY start.sh custom_nodes_config.sh /
 RUN chmod +x /start.sh
 
 # Set Python 3.12 as default

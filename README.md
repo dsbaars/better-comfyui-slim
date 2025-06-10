@@ -26,8 +26,6 @@ Choose your template:
   - Regular: CUDA 12.4 with stable PyTorch
   - RTX 5090: CUDA 12.8 with PyTorch Nightly (optimized for latest NVIDIA GPUs)
 - 🔧 Built-in tools:
-  - FileBrowser for easy file management (port 8080)
-  - Zasper (Jupiter Replacement) (port 8048)
   - SSH access
 - 🎨 Pre-installed custom nodes:
   - ComfyUI-Manager
@@ -40,9 +38,6 @@ Choose your template:
 
 ## Ports
 
-- `8188`: ComfyUI web interface
-- `8080`: FileBrowser interface
-- `8048`: Zasper file access
 - `22`: SSH access
 
 ## Custom Arguments

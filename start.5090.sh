@@ -155,11 +155,8 @@ if [ ! -d "$COMFYUI_DIR" ] || [ ! -d "$VENV_DIR" ]; then
         git clone https://github.com/ltdrdata/ComfyUI-Manager.git
     fi
 
-    # Install additional custom nodes
-    CUSTOM_NODES=(
-        "https://github.com/crystian/ComfyUI-Crystools"
-        "https://github.com/kijai/ComfyUI-KJNodes"
-    )
+    # Load custom nodes configuration
+    source "$(dirname "$0")/custom_nodes_config.sh"
 
     for repo in "${CUSTOM_NODES[@]}"; do
         repo_name=$(basename "$repo")
@@ -226,7 +223,7 @@ else
     
     # Always install/update dependencies for custom nodes
     echo "Installing/updating dependencies for custom nodes..."
-    uv pip install --no-cache GitPython numpy pillow  # Common dependencies
+    uv pip install --no-cache GitPython numpy pillow sageattention  # Common dependencies
     
     # Install dependencies for all custom nodes
     cd "$COMFYUI_DIR/custom_nodes"
@@ -258,7 +255,7 @@ fi
 
 # Start ComfyUI with custom arguments if provided
 cd $COMFYUI_DIR
-FIXED_ARGS="--listen 0.0.0.0 --port 8188"
+FIXED_ARGS="--listen 0.0.0.0 --port 8188 --use-sage-attention"
 if [ -s "$ARGS_FILE" ]; then
     # File exists and is not empty, combine fixed args with custom args
     CUSTOM_ARGS=$(grep -v '^#' "$ARGS_FILE" | tr '\n' ' ')
