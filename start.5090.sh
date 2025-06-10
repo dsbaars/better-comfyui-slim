@@ -188,12 +188,12 @@ if [ ! -d "$COMFYUI_DIR" ] || [ ! -d "$VENV_DIR" ]; then
         
         # Install dependencies for custom nodes
         echo "Installing/updating dependencies for custom nodes..."
-        uv pip install --no-cache GitPython numpy pillow opencv-python torchsde  # Common dependencies
+        uv pip install --no-cache GitPython numpy pillow opencv-python torchsde sageattention insightface # Common dependencies
         
         # Install dependencies for all custom nodes
         cd "$COMFYUI_DIR/custom_nodes"
         for node_dir in */; do
-            if [ -d "$node_dir" ]; then
+            if [ -d "$COMFYUI_DIR/custom_nodes/$node_dir" ]; then
                 echo "Checking dependencies for $node_dir..."
                 cd "$COMFYUI_DIR/custom_nodes/$node_dir"
                 
@@ -223,12 +223,12 @@ else
     
     # Always install/update dependencies for custom nodes
     echo "Installing/updating dependencies for custom nodes..."
-    uv pip install --no-cache GitPython numpy pillow sageattention  # Common dependencies
+    uv pip install --no-cache GitPython numpy pillow sageattention insightface # Common dependencies
     
     # Install dependencies for all custom nodes
     cd "$COMFYUI_DIR/custom_nodes"
     for node_dir in */; do
-        if [ -d "$node_dir" ]; then
+        if [ -d "$COMFYUI_DIR/custom_nodes/$node_dir" ]; then
             echo "Checking dependencies for $node_dir..."
             cd "$COMFYUI_DIR/custom_nodes/$node_dir"
             
