@@ -78,9 +78,9 @@ WORKDIR /workspace/madapps
 # Expose ports
 EXPOSE 22
 
-# Copy and set up start script and configuration
-COPY start.sh custom_nodes_config.sh /
-RUN chmod +x /start.sh
+# Copy and set up start script and configuration files
+COPY start_base.sh custom_nodes_config.sh torch_config.sh /
+RUN chmod +x /start_base.sh && ln -s /start_base.sh /start.sh
 
 # Set Python 3.12 as default
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1 && \
