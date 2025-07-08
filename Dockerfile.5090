@@ -12,7 +12,7 @@ RUN apt-get update && \
     software-properties-common \
     gpg-agent \
     && add-apt-repository ppa:deadsnakes/ppa && \
-    add-apt-repository ppa:cybermax-dexter/ffmpeg-nvenc && \
+    add-apt-repository ppa:savoury1/ffmpeg6 && \
     apt-get update && \
     apt-get install -y --no-install-recommends \
     git \
