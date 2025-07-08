@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
 
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PYTHONUNBUFFERED=1
@@ -37,11 +37,9 @@ RUN apt-get update && \
     procps \
     golang \
     make \
-    g++-11 gcc-11 \
-    byobu \
-    rsync \
     git-lfs \
-    && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2204/x86_64/cuda-keyring_1.1-1_all.deb \
+    byobu \
+    && wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu2404/x86_64/cuda-keyring_1.1-1_all.deb \
     && dpkg -i cuda-keyring_1.1-1_all.deb \
     && apt-get update \
     && apt-get install -y --no-install-recommends cuda-minimal-build-12-8 \
@@ -58,11 +56,6 @@ RUN curl -fsSL https://raw.githubusercontent.com/filebrowser/get/master/get.sh |
 ENV PATH=/usr/local/cuda/bin:${PATH}
 ENV LD_LIBRARY_PATH=/usr/local/cuda/lib64:${LD_LIBRARY_PATH:-}
 
-# Install Zasper webapp
-RUN wget https://github.com/zasper-io/zasper/releases/download/v0.1.0-alpha/zasper-webapp-linux-amd64.tar.gz \
-    && tar xf zasper-webapp-linux-amd64.tar.gz -C /usr/local/bin \
-    && rm zasper-webapp-linux-amd64.tar.gz
-
 # Install Jupyter with Python kernel
 RUN pip install jupyter
 
@@ -76,11 +69,11 @@ RUN mkdir -p /workspace/madapps
 WORKDIR /workspace/madapps
 
 # Expose ports
-EXPOSE 8188 22 8048 8080
+EXPOSE 8188
 
-# Copy and set up start script and configuration files
-COPY start_base.sh custom_nodes_config.sh torch_config.sh /
-RUN chmod +x /start_base.sh && cp /start_base.sh /start.5090.sh && ln -s /start.5090.sh /start.sh
+# Copy and set up start script
+COPY start.5090.sh /start.sh
+RUN chmod +x /start.sh
 
 # Set Python 3.12 as default
 RUN update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1 && \
