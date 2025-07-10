@@ -112,7 +112,7 @@ if [ ! -f "$DB_FILE" ]; then
     filebrowser config set --port 8080
     filebrowser config set --root /workspace
     filebrowser config set --auth.method=noauth
-    filebrowser users add admin filebrowser --perm.admin
+    filebrowser users add admin filebrowseradminadmin --perm.admin
 else
     echo "Using existing FileBrowser configuration..."
 fi
